@@ -1,0 +1,41 @@
+{% extends "wrapper.html" %}
+
+{% block title %}About us{% endblock %}
+
+{% block content %}
+	<div class="alert alert-success" role="alert">
+		<h4 class="alert-heading">О нас:</h4>
+		<p>Server started and works!</p>
+		<hr>
+		{% for val in values %}
+			<p>{{val}}</p>
+		{% endfor %}
+	</div>
+	
+	<form id="form_q">
+		{% csrf_token %}
+		<input type="text" class="form-control" placeholder="Your email" name="email">
+		<textarea class="form-control" placeholder="Your question" name="question"></textarea>
+		<button class="btn btn-success" id="send_q">Send</button>
+	</form>
+	<script>
+		var butn = $("#send_q");
+		var form = $("#form_q");
+		
+		butn.click(function(e){
+			e.preventDefault();
+			$.ajax({
+				data: form.serialize(),
+				method: "POST",
+				url: '/form_handler'
+			})
+			.done(function(d, s, s2){
+				alert("Thanks for your question!")
+			})
+			.fail(function(d, s, s2){
+				alert("Something goes wrong!")
+			});
+			return 0;
+		});
+	</script>
+{% endblock %}
