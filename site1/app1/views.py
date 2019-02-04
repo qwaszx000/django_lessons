@@ -13,3 +13,6 @@ def hello_world(r):
 def formHandler(r):
 	print("Form request with data: " + str(r.POST))
 	return HttpResponse("<h1>Hello, world!</h1>")
+	
+def landing(r):
+	return render(r, 'landing.html')
